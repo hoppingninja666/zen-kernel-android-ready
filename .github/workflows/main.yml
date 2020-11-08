@@ -13,12 +13,15 @@ jobs:
     name: Validate a Pull Request
     steps:
       - uses: actions/checkout@v1
-
       - name: key
         run: |
           curl -s https://keybase.io/heftig/pgp_keys.asc/\?fingerprint\=a2ff3a36aaa56654109064ab19802f8b0d70fc30 | gpg --with-colons --import-options import-show --import | grep 3B94A80E50A477C7
-
-
+      - name: Key import
+        uses: 2m/arch-pkgbuild-builder@v1.16
+        with:
+          target: 'run'
+          pkgname: 'zen-kernel'
+          command: 'curl -s https://keybase.io/heftig/pgp_keys.asc/\?fingerprint\=a2ff3a36aaa56654109064ab19802f8b0d70fc30 | gpg --with-colons --import-options import-show --import | grep 3B94A80E50A477C7'
       - name: Validate PKGBUILD
         id: validate-pkgbuild
         uses: 2m/arch-pkgbuild-builder@v1.16
