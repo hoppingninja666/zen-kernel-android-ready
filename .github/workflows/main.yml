@@ -18,20 +18,12 @@ jobs:
       - name: Validate PKGBUILD
         id: validate-pkgbuild
         uses: 2m/arch-pkgbuild-builder@v1.16
-        run: |
-          curl -s https://keybase.io/heftig/pgp_keys.asc/\?fingerprint\=a2ff3a36aaa56654109064ab19802f8b0d70fc30 | gpg --with-colons --import-options import-show --import | grep 3B94A80E50A477C7
         with:
           target: 'pkgbuild'
           pkgname: 'zen-kernel'
-
-      - name: Validate binary
-        id: validate-binary
-        uses: 2m/arch-pkgbuild-builder@v1.16
-        with:
-          target: 'run'
-          pkgname: 'zen-kernel'
-          command: 'ucm --version'
-
+      - name: key
+        run: |
+          curl -s https://keybase.io/heftig/pgp_keys.asc/\?fingerprint\=a2ff3a36aaa56654109064ab19802f8b0d70fc30 | gpg --with-colons --import-options import-show --import | grep 3B94A80E50A477C7
       - name: yaml-lint
         uses: ibiqlik/action-yamllint@v0.0.2
         with:
